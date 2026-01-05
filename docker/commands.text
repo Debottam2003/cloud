@@ -1,0 +1,32 @@
+docker pull imagename/id (Pulls a images)
+
+docker run imagename/id (Creates a container)
+
+docker run -it imagename/id (Interactive using terminal mode + create conatiner)
+
+docker start containerma/id (Starts a stopped a container)
+
+docker exec -it container/id /bin/bash(or/sh) (Starts a stopped a container in interactive using terminal mode)
+
+docker run --name=<customname> imagename (Creating a container with custom name)
+
+docker ps -a (see all the containers)
+
+docker images (see all the images)
+
+docker run -p3306:3306 --name=mysql -e MYSQL_ROOT_PASSWORD=<secretPW> mysql (port binding)
+
+docker logs containername/id (prints the logs of the container)
+
+docker network create netwotk_name(creates a new network)
+
+docker build -t myapp . (creating image of myapp)
+
+docker run --name server --env-file .env -p 3333:3333 myapp (creating container of my app image)
+
+docker rm <container_id_or_name> ( Remove container )
+
+docker rmi <image_id_or_name> ( Remove image )
+
+
+

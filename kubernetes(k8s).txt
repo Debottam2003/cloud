@@ -1,0 +1,104 @@
+Kubernetes (K8s) is a system that runs and manages(orchestration) applications in containers across multiple computers.
+It automatically starts, stops, restarts, scales, and load-balances your apps, so you don’t have to manage servers or failures manually.
+
+🖥️ PCs = Worker Nodes
+
+Your physical computers are worker nodes in Kubernetes.
+
+They provide:
+
+CPU
+
+RAM
+
+Disk
+
+Network
+
+They are just machines.
+
+📦 Pods = Running Applications (Containers)
+
+A Pod:
+
+Runs one or more containers
+
+Usually one container = one application (Node.js app)
+
+So in your case:
+
+Pod
+ └── Container (Node.js app)
+
+
+👉 Pods run containers
+👉 Containers run your app
+
+You have 3 PCs:
+
+PC-1
+PC-2
+PC-3
+
+
+You deploy a Node.js app with 5 replicas:
+
+PC-1 → Pod (Node.js), Pod (Node.js)
+PC-2 → Pod (Node.js), Pod (Node.js)
+PC-3 → Pod (Node.js)
+
+Each Pod:
+
+Runs one Node.js container
+
+Has its own IP
+
+Is isolated from other pods
+-----------------------------------------------------------------------------------------
+The PC are worker nodes and pods are running applications or containers.
+
+Your Physical Setup
+
+You have 3 physical computers:
+
+PC-1
+PC-2
+PC-3
+
+
+Each PC is a worker node in Kubernetes.
+
+Case 1: 3 Pods on 3 Computers
+
+You say:
+
+replicas: 3
+
+
+Kubernetes tries to spread them out:
+
+PC-1 → Pod 1 (Node.js)
+PC-2 → Pod 2 (Node.js)
+PC-3 → Pod 3 (Node.js)
+
+
+✔ One pod per machine
+✔ Best availability
+
+Case 2: Scale from 3 Pods → 5 Pods
+
+You say:
+
+replicas: 5
+
+
+You still have only 3 computers, so Kubernetes does this:
+
+PC-1 → Pod 1, Pod 4
+PC-2 → Pod 2, Pod 5
+PC-3 → Pod 3
+
+
+👉 Yes — multiple pods run on the same computer
+
+This is how Kubernetes works.
