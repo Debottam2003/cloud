@@ -1,0 +1,166 @@
+In NAT
+10.0.2.15(VM default private ip on NAT mode):54321 -> 8.8.8.8:80 NAT Engine(Rewrites): 192.168.1.10(Host Private ip):60001 -> 8.8.8.8:80 -> Physical Router(Rewrites) -> 
+203.0.113.5(Public ip):60001 -> 8.8.8.8:80
+
+## Virtual Machine Networking Modes: NAT vs Bridged
+
+This document summarizes the key points discussed about VM networking modes (NAT and Bridged), how routers handle LAN peers, and how traffic flows through virtual NICs.
+
+---
+
+### 1. NAT Mode (Network Address Translation)
+
+**Overview:**
+
+* VM shares the host's IP address.
+* Host hypervisor acts as a virtual router.
+* VM gets a private IP (e.g., 10.x.x.x).
+* Outbound traffic is translated to the host's IP.
+
+**Characteristics:**
+
+* VM can access the internet.
+* External devices cannot directly access the VM.
+* Incoming connections require port forwarding.
+* VM is isolated from the LAN.
+
+**Pros:**
+
+* Easy setup.
+* More secure (VM not exposed).
+* Ideal for development/testing.
+
+**Cons:**
+
+* Other LAN devices cannot directly communicate.
+* Hosting servers/services requires extra configuration.
+
+**Traffic Flow (Response Handling):**
+
+1. VM initiates outgoing connection.
+2. NAT engine rewrites source IP to host IP and records translation in a table.
+3. External server replies to host IP.
+4. NAT engine consults translation table.
+5. Response is forwarded to VM virtual NIC.
+
+**Key Notes:**
+
+* VM sees responses as if directly from the server.
+* Unsolicited incoming traffic is dropped.
+* Port forwarding allows external devices to reach the VM.
+* VM uses its **virtual NIC**, not the physical NIC, for all traffic.
+
+---
+
+### 2. Bridged Adapter Mode
+
+**Overview:**
+
+* VM connects directly to the physical network.
+* VM gets its own LAN IP.
+* Appears as a separate device on the LAN.
+
+**Characteristics:**
+
+* VM and host are peers.
+* No NAT translation.
+* Incoming traffic reaches VM directly.
+* Full visibility on the LAN.
+
+**Pros:**
+
+* VM acts like a real machine.
+* Ideal for servers, network testing.
+* No port forwarding needed.
+
+**Cons:**
+
+* Less secure (exposed to LAN).
+* May not work on all Wi-Fi networks.
+* Requires proper network configuration.
+
+**Traffic Flow:**
+
+1. VM sends a request to a server.
+2. Router/switch delivers response directly to VM IP via MAC address.
+3. VM virtual NIC receives traffic without NAT translation.
+
+**Key Notes:**
+
+* VM has its own MAC and IP.
+* Router and LAN devices treat it as a separate host.
+* Unsolicited inbound connections work naturally.
+
+---
+
+### 3. Router and LAN Peer Awareness
+
+**Router knowledge:**
+
+* Maintains **DHCP table** (IP ↔ MAC) for devices requesting dynamic IPs.
+* Maintains **ARP table** (IP ↔ MAC) for recently active devices.
+* Does not automatically know all devices on the LAN (especially inactive or static IP devices).
+* Can approximate number of peers using DHCP leases and ARP entries.
+
+**NAT VM visibility:**
+
+* Router only sees the host IP.
+* VM IP is hidden.
+
+**Bridged VM visibility:**
+
+* Router sees VM as a separate peer.
+* VM appears fully on LAN with its own IP and MAC.
+
+**Layer distinctions:**
+
+| Layer                       | NAT             | Bridged         |
+| --------------------------- | --------------- | --------------- |
+| IP                          | Private, hidden | Real LAN IP     |
+| MAC                         | Virtual, hidden | Own MAC visible |
+| Inbound unsolicited traffic | Blocked         | Allowed         |
+| Router knowledge            | Sees host only  | Sees VM as peer |
+
+---
+
+### 4. NIC Usage
+
+**NAT Mode:**
+
+* VM uses virtual NIC.
+* Physical NIC only indirectly used by host.
+* NAT engine handles translation.
+
+**Bridged Mode:**
+
+* VM uses virtual NIC bridged to host physical NIC.
+* No translation; VM communicates directly on LAN.
+* VM MAC and IP are visible to the LAN.
+
+---
+
+### 5. Summary Table
+
+| Feature              | NAT                               | Bridged   |
+| -------------------- | --------------------------------- | --------- |
+| VM IP                | Private                           | LAN IP    |
+| MAC visible on LAN   | ❌ No                              | ✅ Yes     |
+| Router sees VM?      | ❌ No (only host)                  | ✅ Yes     |
+| Incoming connections | ❌ Blocked (needs port forwarding) | ✅ Allowed |
+| Internet access      | ✅ Yes                             | ✅ Yes     |
+| Setup complexity     | Easy                              | Medium    |
+| Security             | Higher                            | Lower     |
+| LAN visibility       | ❌ No                              | ✅ Full    |
+
+---
+
+### 6. Key Takeaways
+
+* **NAT**: VM is isolated; outgoing connections work; incoming connections need port forwarding.
+* **Bridged**: VM is fully visible on LAN; can host services; no NAT required.
+* **Router**: Only knows peers that have DHCP leases or recently sent traffic; NAT hides VMs from router.
+* **Virtual NIC**: In both modes, the VM always uses its virtual NIC; physical NIC is used directly only in Bridged mode via a bridge.
+
+---
+The host NAT engine (inside VirtualBox, VMware, etc.) is part of the hypervisor software,
+not the host OS’s general networking.
