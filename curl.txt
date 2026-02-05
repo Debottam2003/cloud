@@ -1,0 +1,18 @@
+Fetch a web page or file
+(Simple get request)
+curl https://example.com
+
+Download files
+curl -O https://example.com/file.zip
+The -O option saves the file with its original name.
+
+Send data (like POST requests)
+curl -d "name=John&age=30" -X POST https://example.com/form
+
+Work with APIs
+curl -H "Authorization: Bearer TOKEN" https://api.example.com/data
+-H adds headers; useful when talking to APIs that need authentication.
+
+Check server responses
+curl -I https://example.com
+-I fetches only the headers, useful for checking status codes or server info.

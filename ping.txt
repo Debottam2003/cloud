@@ -1,0 +1,23 @@
+You run: ping example.com
+
+Your computer sends a small packet of data called an ICMP echo request to the target (example.com in this case).
+
+The target computer responds with an ICMP echo reply.
+
+ping measures the round-trip time (RTT) — how long it took for the packet to go there and back.
+
+It repeats this multiple times (usually until you stop it with Ctrl+C) and shows:
+
+Time taken in milliseconds
+
+Packet loss (if some requests didn’t get a reply)
+
+Statistics like min/avg/max round-trip time
+
+✅ Simple summary:
+
+Check connectivity: Does the target respond?
+
+Measure latency: How fast is the network to that target?
+
+Troubleshoot network issues: High latency or packet loss can indicate problems.
