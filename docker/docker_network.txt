@@ -1,0 +1,22 @@
+1. Default bridge
+By default a virtual network interface is given usually 172.17.0.1/16
+containers are given ip -> 172.17.X.X/16
+Containers can reach to each other as they are in the same virtual network.
+
+2. Use defined bridge
+We can create separate user defined virtual network usually 172.18.0.1/16 and so on.
+Commands: docker network create <name>
+This mode gives isolation.
+Running containers on two different virtual networks are isolated.
+
+3. Host mode
+In this mode the containers share Host machine ip and ports.
+Containers feel like native application like.  
+
+4. MacVlan
+Using this mode separate mac address is assigned to the containers and
+appear as individual peer in the LAN(real network), gets ip
+address using DHCP. Same like VMs in Bridge Adapter mode.
+But this mode is very easy to setup.
+
+*Mainly the userdefined bridge mode is mostly used and recommended and the default bridge one too.
