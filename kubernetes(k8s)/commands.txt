@@ -1,0 +1,34 @@
+!Note: In the below these are Very Basic commands, there are many more add-ons can be added with these commands.  
+
+kubectl get nodes
+kubectl get pods
+kubectl get deployments
+kubectl get svc
+
+kubectl describe pods
+kubectl get pods -A
+watch kubectl get pods
+
+Specific
+--------
+kubectl get nodes <name>
+kubectl get pods <name>
+kubectl get deployments <name>
+kubectl get svc <name>
+
+kubectl delete pods <name>
+kubectl delete deployments <name>
+kubectl delete svc <name>
+
+Creation
+--------
+kubectl run <pod-name> --image=<image-name>
+kubectl create deployment <deployment-name> --image=<image-name> --replicas=n
+kubectl scale deployment <deployment-name> --replicas=n
+kubectl expose pod <pod-name> --type=NodePort --port=80
+kubectl expose deployment <deployment-name> --type=NodePort --port=80
+
+Can create Pods, Deployments, Services(Reusable Method)
+-------------------------------------------------------
+kubectl apply -f <manifest-filename>.yaml
+kubectl delete -f <manifest-filename>.yaml
