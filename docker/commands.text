@@ -28,5 +28,49 @@ docker rm <container_id_or_name> ( Remove container )
 
 docker rmi <image_id_or_name> ( Remove image )
 
+docker network create <mynetwork-name> ( Creates a new Network )
+
+docker network create mynetwork
+
+Run MySQL
+
+docker run -d \
+  --name mysql \
+  --network mynetwork \
+  -e MYSQL_ROOT_PASSWORD=password \
+  mysql:8
+
+Run Node
+
+docker run -d \
+  --name nodejsserver \
+  --network mynetwork \
+  your-node-image
+
+version: '3.8'
+
+services:
+  nodejsserver:
+    build: .
+    container_name: nodejsserver
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_USER: root
+      DB_PASSWORD: password
+      DB_NAME: mydb
+
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: mydb
+    ports:
+      - "3306:3306"
 
 

@@ -1,0 +1,33 @@
+🧱 Kubernetes Networking Basics
+
+In Kubernetes there are three different networks:
+
+Node network → Your LAN
+Example: 192.168.1.0/24
+
+Pod network → Internal cluster network
+Example: 192.168.0.0/16
+
+Service network → ClusterIP range
+Default: 10.96.0.0/16
+
+Pods must get IPs from a dedicated Pod network.
+
+1. Packet hits node
+2. kube-proxy sees NodePort(The Service)
+3. kube-proxy chooses a Pod IP
+4. Packet rewritten to Pod IP
+5. Calico routes packet to correct worker
+6. Pod responds
+7. Response goes back same path
+
+Laptop (192.168.1.50)
+    ↓
+Worker2 (192.168.1.210:30801)
+    ↓ DNAT + SNAT
+Worker1 (nginx 192.168.45.12:80)
+    ↓
+Worker2 (reverse NAT)
+    ↓
+Laptop
+
