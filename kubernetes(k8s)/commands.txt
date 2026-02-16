@@ -32,3 +32,9 @@ Can create Pods, Deployments, Services(Reusable Method)
 -------------------------------------------------------
 kubectl apply -f <manifest-filename>.yaml
 kubectl delete -f <manifest-filename>.yaml
+
+--------------------------------------------------------
+Namespace divides a single cluster into multiple virtual clusters
+kubectl create namespace dev
+kubectl run nginx --image=nginx -n dev
+kubectl get pods -n dev
