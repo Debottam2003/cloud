@@ -85,12 +85,5 @@ This project does not currently specify a license. Add a license file (like **MI
 
 ---
 
-## 🧠 Learn More
-
-If you are new to GitHub:
-- A **repository** stores your files and their revision history. You can collaborate and version-control your work on GitHub. :contentReference[oaicite:1]{index=1}
-
----
-
 
 
