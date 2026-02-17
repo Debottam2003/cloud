@@ -38,3 +38,7 @@ Namespace divides a single cluster into multiple virtual clusters
 kubectl create namespace dev
 kubectl run nginx --image=nginx -n dev
 kubectl get pods -n dev
+
+--------------------------------------------------------
+kubectl autoscale deployment <deployment-name> --cpu-percent=70 --min=2 --max=10
+
