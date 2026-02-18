@@ -26,7 +26,7 @@ kubectl run <pod-name> --image=<image-name>
 kubectl create deployment <deployment-name> --image=<image-name> --replicas=n
 kubectl scale deployment <deployment-name> --replicas=n
 kubectl expose pod <pod-name> --type=NodePort --port=80
-kubectl expose deployment <deployment-name> --type=NodePort --port=80
+kubectl expose deployment <deployment-name> --type=NodePort --port=80 --target-port=80
 
 Can create Pods, Deployments, Services(Reusable Method)
 -------------------------------------------------------
