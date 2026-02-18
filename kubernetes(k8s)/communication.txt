@@ -1,0 +1,54 @@
+To let your Node.js app communicate with MySQL inside Kubernetes (K8s), you typically use a Kubernetes Service for MySQL and connect to it via internal DNS.
+Here’s the complete setup flow 👇
+
+✅ 1️⃣ Deploy MySQL in Kubernetes
+
+You usually create:
+A Deployment (or StatefulSet)
+A Service (ClusterIP)
+Example: MySQL Deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: rootpassword
+        - name: MYSQL_DATABASE
+          value: mydb
+        ports:
+        - containerPort: 3306
+
+
+MySQL Service (IMPORTANT)
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  type: ClusterIP
+  selector:
+    app: mysql
+  ports:
+  - port: 3306
+    targetPort: 3306
+
+This creates an internal DNS name:
+mysql.default.svc.cluster.local
+
+Inside the same namespace, you can simply use:
+mysql
