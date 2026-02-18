@@ -42,3 +42,6 @@ kubectl get pods -n dev
 --------------------------------------------------------
 kubectl autoscale deployment <deployment-name> --cpu-percent=70 --min=2 --max=10
 
+kubectl config set-context --current --namespace=default
+
+

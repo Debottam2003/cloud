@@ -1,38 +1,76 @@
-docker pull imagename/id (Pulls a images)
+Docker pull command:
 
-docker run imagename/id (Creates a container)
+docker pull imagename/id
+Pulls an image from Docker Hub (or another registry) to your local machine.
 
-docker run -it imagename/id (Interactive using terminal mode + create conatiner)
+Docker run command:
 
-docker start containerma/id (Starts a stopped a container)
+docker run imagename/id
+Creates and starts a container from the image.
 
-docker exec -it container/id /bin/bash(or/sh) (Starts a stopped a container in interactive using terminal mode)
+docker run -it imagename/id
+Runs the container in interactive terminal mode (-it = interactive + TTY).
 
-docker run --name=<customname> imagename (Creating a container with custom name)
+docker start containername/id
+Starts a stopped container.
 
-docker ps -a (see all the containers)
+docker exec -it container/id /bin/bash
+docker exec -it container/id /bin/sh
+Opens an interactive terminal inside a running container.
 
-docker images (see all the images)
+docker run --name=<customname> imagename
+Creates and starts a container with a custom name.
 
-docker run -p3306:3306 --name=mysql -e MYSQL_ROOT_PASSWORD=<secretPW> mysql (port binding)
+docker ps -a
+Shows all containers (running and stopped).
 
-docker logs containername/id (prints the logs of the container)
+docker images
+Lists all downloaded images.
 
-docker network create netwotk_name(creates a new network)
+Port binding example:
 
-docker build -t myapp . (creating image of myapp)
+docker run -p 3306:3306 --name=mysql -e MYSQL_ROOT_PASSWORD=<secretPW> mysql
+Maps host port 3306 to container port 3306 and sets MySQL root password.
+Format: -p <host_port>:<container_port>
 
-docker run --name server --env-file .env -p 3333:3333 myapp (creating container of my app image)
+Logs:
 
-docker rm <container_id_or_name> ( Remove container )
+docker logs containername/id
+Displays logs of a container.
 
-docker rmi <image_id_or_name> ( Remove image )
+Docker network:
 
-docker network create <mynetwork-name> ( Creates a new Network )
+docker network create network_name
+Creates a custom network so containers can communicate using container names.
 
+Build image:
+
+docker build -t myapp .
+Builds an image from the Dockerfile in the current directory.
+-t assigns a tag/name.
+
+Run app container:
+
+docker run --name server --env-file .env -p 3333:3333 myapp
+Creates a container from the myapp image, loads environment variables from .env, and maps port 3333.
+
+Remove container:
+
+docker rm <container_id_or_name>
+Removes a stopped container.
+
+Remove image:
+
+docker rmi <image_id_or_name>
+Removes an image.
+
+Create network again:
+
+docker network create <mynetwork-name>
 docker network create mynetwork
+Creates a new Docker bridge network.
 
-Run MySQL
+Run MySQL in a custom network:
 
 docker run -d \
   --name mysql \
@@ -40,12 +78,21 @@ docker run -d \
   -e MYSQL_ROOT_PASSWORD=password \
   mysql:8
 
-Run Node
+
+-d runs in detached (background) mode.
+Container connects to mynetwork.
+
+Run Node.js in the same network:
 
 docker run -d \
   --name nodejsserver \
   --network mynetwork \
   your-node-image
+
+
+Node container can access MySQL using hostname mysql.
+
+Docker Compose example (docker-compose.yml):
 
 version: '3.8'
 
@@ -74,3 +121,23 @@ services:
       - "3306:3306"
 
 
+Defines multiple services in one file.
+depends_on ensures MySQL starts before Node.
+Containers communicate using service names.
+Run with: docker-compose up -d
+
+Docker volume:
+
+docker volume create mysql_data
+Creates a persistent storage volume.
+
+docker run -d \
+  --name mysql \
+  -e MYSQL_ROOT_PASSWORD=secret \
+  -v mysql_data:/var/lib/mysql \
+  mysql
+
+Mounts volume into MySQL data directory so data persists even if the container is removed.
+
+Host machine path for volumes:
+/var/lib/docker/volumes/<volume_name>/_data
