@@ -1,0 +1,72 @@
+✅ Simple Example (With Persistent Storage)
+1️⃣ Create a PersistentVolume (PV)
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/mysql
+
+
+⚠️ hostPath is good for testing (Minikube only).
+For production use cloud storage (EBS, GCE, etc.).
+
+2️⃣ Create PersistentVolumeClaim (PVC)
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+
+
+This “claims” the storage.
+
+3️⃣ Use PVC in Deployment (Example with MySQL)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: rootpassword
+        volumeMounts:
+        - name: mysql-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-storage
+        persistentVolumeClaim:
+          claimName: mysql-pvc
+
+
+📌 Important:
+/var/lib/mysql is where MySQL stores its data.
+
+Now:
+Pod restarts → data stays
+Container recreated → data still there
+Container data is stored in the host machine this provides a persistent storage.
+
+
