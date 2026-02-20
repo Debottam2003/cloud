@@ -136,6 +136,8 @@ docker run -d \
   -e MYSQL_ROOT_PASSWORD=secret \
   -v mysql_data:/var/lib/mysql \
   mysql
+  
+docker run --name new-ubuntu -v my_data:/var/lib/data -it ubuntu 
 
 Mounts volume into MySQL data directory so data persists even if the container is removed.
 
