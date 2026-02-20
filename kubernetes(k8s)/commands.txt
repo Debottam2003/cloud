@@ -25,7 +25,7 @@ Creation
 kubectl run <pod-name> --image=<image-name>
 kubectl create deployment <deployment-name> --image=<image-name> --replicas=n
 kubectl scale deployment <deployment-name> --replicas=n
-kubectl expose pod <pod-name> --type=NodePort --port=80
+kubectl expose pod <pod-name> --type=NodePort --port=80 --target-port=80
 kubectl expose deployment <deployment-name> --type=NodePort --port=80 --target-port=80
 
 Can create Pods, Deployments, Services(Reusable Method)
@@ -44,4 +44,4 @@ kubectl autoscale deployment <deployment-name> --cpu-percent=70 --min=2 --max=10
 
 kubectl config set-context --current --namespace=default
 
-
+kubectl port-forward svc/<service-name> 3333:80 -n monitoring --address 0.0.0.0
