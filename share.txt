@@ -1,3 +1,0 @@
-PROMPT='%B%F{45}%n%f%b@%B%F{green}%m%f%b:%B%F{blue}%~%f%b%B%F{green}$%f%b %(?.%F{>
-%B%F{green}➜%f%b '
-alias ls='ls --color=auto'
