@@ -1,0 +1,13 @@
+| Color      | Value     |
+| ---------- | --------- |
+| Background | `#1a1b26` |
+| Foreground | `#c0caf5` |
+| Black      | `#15161e` |
+| Red        | `#f7768e` |
+| Green      | `#9ece6a` |
+| Yellow     | `#e0af68` |
+| Blue       | `#7aa2f7` |
+| Magenta    | `#bb9af7` |
+| Cyan       | `#7dcfff` |
+| White      | `#a9b1d6` |
+
