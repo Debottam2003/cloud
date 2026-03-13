@@ -31,3 +31,15 @@ Worker2 (reverse NAT)
     ↓
 Laptop
 
+Common Kubernetes objects include:
+
+* Pod
+* Service
+* Deployment
+* ReplicaSet
+* StatefulSet
+* DaemonSet
+* ConfigMap
+* Secret
+* Ingress
+

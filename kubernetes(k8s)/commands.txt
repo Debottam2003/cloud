@@ -1,24 +1,27 @@
 !Note: In the below these are Very Basic commands, there are many more add-ons can be added with these commands.  
 
+Generic
+-------
 kubectl get nodes
 kubectl get pods
 kubectl get deployments
-kubectl get svc
+kubectl get svc/kubectl get services
 
 kubectl describe pods
 kubectl get pods -A
-watch kubectl get pods
+watch kubectl get pods/kubectl get pods -w
+kubectl get pods -o wide
 
 Specific
 --------
-kubectl get nodes <name>
-kubectl get pods <name>
-kubectl get deployments <name>
-kubectl get svc <name>
+kubectl get node <name>
+kubectl get pod <name>
+kubectl get deployment <name>
+kubectl get svc <name>/kubectl get service <name>
 
-kubectl delete pods <name>
-kubectl delete deployments <name>
-kubectl delete svc <name>
+kubectl delete pod <pod-name>
+kubectl delete deployment <deployment-name>
+kubectl delete service <service-name>
 
 Creation
 --------
