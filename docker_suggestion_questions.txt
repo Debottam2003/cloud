@@ -1,0 +1,76 @@
+Docker & Containerization – Practice / Suggestion Problems
+
+These problems are meant for practice. They focus on the skills and
+ideas required for container-based application development and
+deployment.
+
+Conceptual Understanding
+
+1.  Describe how container technology improves software portability
+    across different environments.
+2.  In modern cloud systems, why do organizations prefer lightweight
+    containers instead of full operating system instances?
+3.  Suppose an application stops working after a container is removed.
+    What mechanism can be used to ensure important files are not lost?
+4.  Explain how a container image becomes a running application. Mention
+    the stages involved.
+5.  In a scenario where multiple services must interact with each other,
+    how does a container platform handle internal communication?
+6.  Discuss the role of build instructions in automating application
+    packaging.
+7.  During image creation, some folders such as logs or development
+    dependencies are usually excluded. Why is this practice followed?
+8.  Explain how virtualization software manages multiple guest
+    environments on the same physical hardware.
+
+Command and Practical Thinking
+
+9.  Write the steps required to download a minimal Linux image and start
+    an interactive container from it.
+10. Demonstrate how a service running inside a container can be accessed
+    from the host machine using a mapped port.
+11. Create two containers that belong to the same isolated network and
+    verify that they can communicate with each other.
+12. Start a container, create a file inside it, and then restart the
+    container. What happens to the file? How can this behavior be
+    changed?
+13. Show how to inspect a running container to view its IP address and
+    network configuration.
+
+Application Deployment Practice
+
+14. Write a small server application and package it into a container
+    image. Run the container and verify that the server responds to
+    requests.
+15. Create a simple two-service system where a backend service
+    communicates with a database service.
+16. Design a configuration file that allows multiple services to start
+    together with a single command.
+17. Demonstrate how to enter a running container and execute commands
+    inside it.
+18. Run a database container and perform basic database operations such
+    as creating tables and retrieving records.
+
+Programming + Containers
+
+19. Write a simple program that prints a pattern or performs a small
+    calculation and run it through a containerized environment.
+20. Create a web response that returns a formatted HTML page when the
+    root route of a server is accessed.
+
+Advanced Practice
+
+21. Tag a container image properly and push it to a remote repository.
+22. From another system, download the published image and run the
+    container.
+23. Explain the different types of container networks and when each type
+    should be used.
+24. Describe how container orchestration tools simplify multi-service
+    application deployment.
+
+Practice Advice
+
+Students should regularly practice: - Creating and deleting containers -
+Building images from application code - Running services inside
+containers - Managing networks and storage - Documenting commands and
+outputs clearly
