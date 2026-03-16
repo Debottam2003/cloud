@@ -1,0 +1,32 @@
+Group A
+-------
+The answers should be in a wordfile or as a pdf and write the answers with the commands and screen-shots attached like you build
+assignments.
+2 marks questions:(Any 10)                                                                       Time: 2 hours           Full Marks: 50
+1)VM vs docker.
+2)Pros and cons of docker.
+3)What is volume in docker and what is mouting.
+4)Image vs containers.
+5)What is docker network.
+6)Create a network and run a busybox os container inside it and tell the network address and the container address(Need just the commands).
+7)Create two busybox instances e.g. b1 and b2 and ping each other buy name(Attach the text outputs and add commands).
+8)Run a mysql db container with port mapping and 1-2 lines on what is port mapping/pot forwarding/port binding(Attach the commands too).
+9)Why Dockerfile is needed?
+10)Why docker-compose.yaml file is needed?
+11)Why .dockerignore file is needed?
+12)What is hypervisor?
+
+Group B
+-------
+5 marks questions:(Any 6)
+1.Write a express server code create an image out of it run a container from it(port mapping) curl from the host machine and write the success output.
+2.Create a volume v1 attach to conatiner c1 and persist some data, now remove the container c1 and create another container c2 and
+attach the volume v1 to it and show that the data is still there.
+3.Run a mysql database container and jump inside into it and create a database then a table and insert some data into the table and
+apply select * from <table-name>.(Write the commands and attach some screen shots).
+4.Run a multi conatiner application nodejs server + mysql database using compose.yaml file.
+5.Create an image(your application code) publish to docker hub(I will pull it and run a container).
+6.Explain docker networks with full details and examples.
+7.Run an express server container that will send an index.html file in response of a request at '/' route(Good index.html file will
+be appreciated).
+8.create any * pattern code in c and create an image of it run a container that will print the * pattern. 
