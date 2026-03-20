@@ -1,0 +1,3 @@
+Definition:
+Computing on centralized remote data centers and on demand delivery of that computing or IT resources over the internet
+with pay as you go/use model.
